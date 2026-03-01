@@ -1,0 +1,6 @@
+name: cron_persistence_pack
+queries:
+  - name: user_crontabs
+    query: |
+      SELECT * FROM crontab;
+    interval: 3600

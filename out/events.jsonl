@@ -1,0 +1,5 @@
+{"ts": "2026-03-01T16:18:50.291186+00:00", "host": "ip-10-0-1-10", "user": "tyler", "event_type": "process_creation", "image": "/usr/bin/python3", "command_line": "/usr/bin/python3 agent.py", "pid": 1000}
+{"ts": "2026-03-01T16:18:50.291241+00:00", "host": "ip-10-0-2-20", "user": "tyler", "event_type": "process_creation", "image": "/bin/bash", "command_line": "/bin/bash -lc echo ok", "pid": 1001}
+{"ts": "2026-03-01T16:18:50.291261+00:00", "host": "ip-10-0-1-10", "user": "tyler", "event_type": "process_creation", "image": "/bin/bash", "command_line": "/bin/bash -lc echo ok", "pid": 1002}
+{"ts": "2026-03-01T16:18:50.291275+00:00", "host": "ip-10-0-2-20", "user": "ubuntu", "event_type": "process_creation", "image": "/usr/bin/crontab", "command_line": "/usr/bin/crontab -", "pid": 1003}
+{"ts": "2026-03-01T16:18:50.291287+00:00", "host": "ip-10-0-2-20", "user": "root", "event_type": "process_creation", "image": "/usr/bin/python3", "command_line": "/usr/bin/python3 agent.py", "pid": 1004}

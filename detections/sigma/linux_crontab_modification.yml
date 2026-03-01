@@ -1,0 +1,21 @@
+title: Linux Cron Persistence via Crontab Modification
+id: 6bb9476b-2b89-4a4b-8a52-2ef6d6ed0c3c
+status: experimental
+description: Detects processes that modify user crontabs (common persistence mechanism).
+author: tcoatswo
+logsource:
+  product: linux
+  category: process_creation
+
+detection:
+  selection:
+    Image|endswith:
+      - /crontab
+    CommandLine|contains:
+      - " crontab -"
+      - " crontab -l"
+  condition: selection
+
+falsepositives:
+  - Legitimate automation / admin actions
+level: medium
