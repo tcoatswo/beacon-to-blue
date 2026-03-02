@@ -1,6 +1,6 @@
 # beacon-to-blue
 
-## For grad-school reviewers (what this demonstrates)
+## For reviewers (academic summary)
 **beacon-to-blue** is a **defender-first capstone**: it translates common “beacon-style” intrusion tradecraft into **evidence-driven defensive outputs** and **policy-ready decision artifacts**.
 
 **Primary outcomes:**
