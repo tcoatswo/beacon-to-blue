@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Translate beacon behaviors into defender-first artifacts"
 readme = "README.md"
 requires-python = ">=3.11"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "Tyler Coatsworth"}]
 dependencies = [
   "pyyaml==6.0.2",
@@ -21,3 +21,9 @@ dev = ["pytest==8.3.2"]
 
 [project.scripts]
 beacon-to-blue = "beacon_to_blue.cli:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["beacon_to_blue*"]
