@@ -1,40 +1,78 @@
 # beacon-to-blue
 
-Translate attacker-described **beacon behaviors** into defender-first artifacts: **schemas**, **detection generation**, and **evaluation**.
+A defensive, applied-research repo that treats “beacon behavior” like a **compilable specification**.
 
-This repo is designed to read like a small applied research project:
-- represent behaviors as structured specifications
-- compile them into blue-team artifacts (Sigma, SPL, KQL, etc.)
-- evaluate against benign lookalikes to reason about false positives
+Instead of shipping another one-off detection, `beacon-to-blue` aims to make the translation step *repeatable*:
 
-## What’s included
-- `spec/schema.json` — a behavior specification schema
-- `spec/examples/` — example behaviors with MITRE ATT&CK mappings and assumptions
-- `beacon_to_blue/` — compiler + generators + evaluation harness
-- `datasets/` — small synthetic datasets (benign vs malicious-like)
+1) **Represent** a behavior as a structured spec (with assumptions + telemetry requirements)  
+2) **Compile** it into defender artifacts (Sigma, SPL, KQL, optional Suricata)  
+3) **Evaluate** it against benign lookalikes to reason about false positives and detection latency
+
+## Why admissions reviewers should care
+This is security engineering with a research mindset:
+- explicit behavioral model
+- reproducible artifacts
+- measurement loop (not vibes)
+
+## Repo tour
+- `spec/schema.json` — JSON Schema for behavior specs
+- `spec/examples/` — example behaviors
+- `beacon_to_blue/` — compiler + evaluation harness
+- `datasets/` — synthetic benign vs malicious-like telemetry
 - `docs/behaviors/` — short writeups per behavior
 
 ## Quick start
 
-### 1) Generate artifacts from a behavior spec
+### Install
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-
-python3 -m beacon_to_blue.cli --input spec/examples/http_beacon_minimal.yml --out out/artifacts
+pip install -U pip
+pip install -e '.[dev]'
 ```
 
-### 2) Run evaluation
+### Compile a behavior spec into artifacts
 ```bash
-python3 -m beacon_to_blue.evaluate \
+beacon-to-blue \
+  --input spec/examples/http_beacon_minimal.yml \
+  --out out/artifacts
+
+# outputs under:
+# out/artifacts/http_beacon_minimal/
+#   - sigma.yml
+#   - splunk.spl
+#   - kql.kql
+#   - suricata.rules (optional)
+```
+
+### Evaluate against benign lookalikes
+```bash
+python -m beacon_to_blue.evaluate \
   --behavior spec/examples/http_beacon_minimal.yml \
   --positive datasets/malicious_like/http_beacon_minimal.jsonl \
   --benign datasets/benign/http_lookalike.jsonl \
   --out out/report_http_beacon_minimal.json
+
+cat out/report_http_beacon_minimal.json
 ```
 
-## Defensive scope
-No malware, no C2, no exploitation. The focus is defensive translation and measurement.
+## Behavior specs (what goes in a model)
+A spec can include:
+- **MITRE ATT&CK mappings** (tactics/techniques)
+- **timing model** (interval/jitter notes)
+- **observables** (process, HTTP)
+- **false positive notes** + **assumptions**
+- **required telemetry** (what you must be logging for detections to work)
+
+## Defensive scope / non-goals
+- No malware
+- No C2 tooling
+- No exploitation
+
+This is about *translation* and *measurement*.
+
+## Citation-friendly framing
+If you want to reference this in a statement of purpose, the short version is:
+> “A behavior-spec compiler that generates detection content and evaluates it against benign lookalikes to reduce false positives.”
 
 ## License
 MIT
