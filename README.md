@@ -70,9 +70,7 @@ A spec can include:
 
 This is about *translation* and *measurement*.
 
-## Citation-friendly framing
-If you want to reference this in a statement of purpose, the short version is:
-> “A behavior-spec compiler that generates detection content and evaluates it against benign lookalikes to reduce false positives.”
+Policy note: this project is designed to make detection logic auditable by documenting assumptions and required telemetry for each rule and validating outputs with a small evaluation harness to support defensible security decisions.
 
 ## License
 MIT
