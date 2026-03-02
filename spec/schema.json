@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "beacon-to-blue behavior spec",
+  "type": "object",
+  "required": ["id", "name", "observables"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9_\\-]+$"},
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+    "tactics_techniques": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "timing_model": {
+      "type": "object",
+      "properties": {
+        "interval_s": {"type": "number"},
+        "jitter_s": {"type": "number"},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "observables": {
+      "type": "object",
+      "properties": {
+        "process_creation": {
+          "type": "object",
+          "properties": {
+            "image_contains": {"type": "array", "items": {"type": "string"}},
+            "command_line_contains": {"type": "array", "items": {"type": "string"}}
+          },
+          "additionalProperties": false
+        },
+        "http": {
+          "type": "object",
+          "properties": {
+            "domains": {"type": "array", "items": {"type": "string"}},
+            "uri_contains": {"type": "array", "items": {"type": "string"}}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "false_positive_notes": {"type": "array", "items": {"type": "string"}},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "required_telemetry": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

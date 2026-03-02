@@ -1,4 +1,4 @@
-out/
 .venv/
 __pycache__/
+out/
 *.pyc

@@ -5,18 +5,27 @@ on:
   pull_request:
 
 jobs:
-  simulator:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
       - name: Install
         run: |
           python -m pip install -U pip
+          pip install -r requirements.txt
           pip install -r simulator/requirements.txt
-      - name: Run simulator
+      - name: Unit tests
+        run: |
+          pytest -q
+      - name: Demo compile + evaluate
+        run: |
+          python -m beacon_to_blue.cli --input spec/examples/http_beacon_minimal.yml --out out/artifacts
+          python -m beacon_to_blue.evaluate --behavior spec/examples/http_beacon_minimal.yml --positive datasets/malicious_like/http_beacon_minimal.jsonl --benign datasets/benign/http_lookalike.jsonl --out out/report.json
+          test -s out/report.json
+      - name: Run simulator (existing)
         run: |
           python simulator/generate_events.py --out out/events.jsonl --count 10
           test -s out/events.jsonl

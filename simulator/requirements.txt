@@ -1,1 +1,1 @@
-pydantic>=2.6
+# simulator has no third-party deps

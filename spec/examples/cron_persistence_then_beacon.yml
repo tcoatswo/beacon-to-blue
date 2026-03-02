@@ -1,0 +1,22 @@
+id: cron_persistence_then_beacon
+name: Cron persistence followed by periodic HTTP beacon
+description: Model a simple persistence+beacon story and translate into blue-team artifacts.
+tactics_techniques:
+  - TA0003
+  - T1053
+  - T1071
+
+observables:
+  process_creation:
+    image_contains: ["crontab"]
+    command_line_contains: ["crontab -"]
+  http:
+    domains: ["example.com"]
+    uri_contains: ["/heartbeat"]
+
+false_positive_notes:
+  - Legitimate cron changes by administrators.
+
+required_telemetry:
+  - process_creation
+  - proxy/http logs

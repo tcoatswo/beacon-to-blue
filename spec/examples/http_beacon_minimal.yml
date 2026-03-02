@@ -1,0 +1,29 @@
+id: http_beacon_minimal
+name: Periodic HTTP heartbeat to single domain
+description: A minimal periodic HTTP heartbeat pattern, expressed defensively.
+tactics_techniques:
+  - TA0011
+  - T1071
+
+timing_model:
+  interval_s: 15
+  jitter_s: 3
+  notes: Fixed-ish interval with small jitter; common for benign agents and malware alike.
+
+observables:
+  process_creation:
+    image_contains: ["curl"]
+    command_line_contains: ["https://example.com/heartbeat"]
+  http:
+    domains: ["example.com"]
+    uri_contains: ["/heartbeat"]
+
+false_positive_notes:
+  - Legitimate monitoring agents or health checks using curl.
+
+assumptions:
+  - Process command-line telemetry is available.
+
+required_telemetry:
+  - process_creation (image, command_line)
+  - proxy/http logs (host, uri)

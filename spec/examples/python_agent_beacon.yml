@@ -1,0 +1,15 @@
+id: python_agent_beacon
+name: Python agent periodic callback
+description: A python-based agent periodically calling home over HTTP.
+observables:
+  process_creation:
+    image_contains: ["python"]
+    command_line_contains: ["agent.py"]
+  http:
+    domains: ["example.com"]
+    uri_contains: ["/heartbeat"]
+false_positive_notes:
+  - Internal automation scripts that legitimately call a health endpoint.
+required_telemetry:
+  - process_creation
+  - http/proxy logs
