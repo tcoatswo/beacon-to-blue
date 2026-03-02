@@ -1,12 +1,16 @@
 # beacon-to-blue
 
-A **defender-first** project that translates common “beacon-style” intrusion tradecraft into:
+## For grad-school reviewers (what this demonstrates)
+**beacon-to-blue** is a **defender-first capstone**: it translates common “beacon-style” intrusion tradecraft into **evidence-driven defensive outputs** and **policy-ready decision artifacts**.
 
-1) **actionable detections** (Sigma, osquery)
-2) **repeatable lab simulation** (benign log generator)
-3) **policy-ready decision artifacts** (risk + controls + exceptions)
+**Primary outcomes:**
+1) **Actionable detections** (Sigma, osquery)
+2) **Repeatable validation** (benign lab simulation / log generator)
+3) **Governance artifacts** (risk framing, controls, and exception language)
 
-This repo is intentionally designed to be safe and publishable: it contains **no persistence tooling, no covert C2, and no remote execution**. Instead, it focuses on what defenders and risk owners need: **signals, controls, and governance**.
+**Safety boundary:** This repo is intentionally safe and publishable: it contains **no persistence tooling, no covert C2, and no remote execution**. The focus is what defenders and risk owners need: **signals, controls, and governance**.
+
+**Related (engineering-focused) repo:** If you want to see a separate, systems-oriented project that builds a safe **agent → collector telemetry pipeline**, see **crystal-beacon-lab**: https://github.com/tcoatswo/crystal-beacon-lab
 
 ## What’s inside
 
