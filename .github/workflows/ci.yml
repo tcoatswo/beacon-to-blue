@@ -15,14 +15,13 @@ jobs:
       - name: Install
         run: |
           python -m pip install -U pip
-          pip install -r requirements.txt
-          pip install -r simulator/requirements.txt
+          pip install -e .[dev]
       - name: Unit tests
         run: |
           pytest -q
       - name: Demo compile + evaluate
         run: |
-          python -m beacon_to_blue.cli --input spec/examples/http_beacon_minimal.yml --out out/artifacts
+          beacon-to-blue --input spec/examples/http_beacon_minimal.yml --out out/artifacts
           python -m beacon_to_blue.evaluate --behavior spec/examples/http_beacon_minimal.yml --positive datasets/malicious_like/http_beacon_minimal.jsonl --benign datasets/benign/http_lookalike.jsonl --out out/report.json
           test -s out/report.json
       - name: Run simulator (existing)
