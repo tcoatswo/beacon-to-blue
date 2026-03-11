@@ -1,5 +1,15 @@
 # beacon-to-blue
 
+## Overview
+```mermaid
+graph LR
+    A[Behavior Spec YAML] --> B(beacon-to-blue compiler)
+    B --> C{Defender Artifacts}
+    C --> D[Sigma]
+    C --> E[KQL / SPL]
+    C --> F[Suricata]
+```
+
 A defensive, applied-research repo that treats “beacon behavior” like a **compilable specification**.
 
 Instead of shipping another one-off detection, `beacon-to-blue` aims to make the translation step *repeatable*:
