@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
 import json
-
-SCHEMA_PATH = Path(__file__).resolve().parent.parent / "spec" / "schema.json"
-
+from importlib.resources import files
 
 def load_schema() -> dict:
-    return json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    return json.loads(files("beacon_to_blue").joinpath("schema.json").read_text(encoding="utf-8"))
