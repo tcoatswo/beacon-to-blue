@@ -21,10 +21,13 @@ jobs:
           pytest -q
       - name: Demo compile + evaluate
         run: |
-          beacon-to-blue --input spec/examples/http_beacon_minimal.yml --out out/artifacts
+          beacon-to-blue --input spec/examples --validate-only
+          beacon-to-blue --input spec/examples --out out/artifacts
+          test -s out/artifacts/http_beacon_minimal/sigma_http.yml
+          test -s out/artifacts/http_beacon_minimal/manifest.json
           python -m beacon_to_blue.evaluate --behavior spec/examples/http_beacon_minimal.yml --positive datasets/malicious_like/http_beacon_minimal.jsonl --benign datasets/benign/http_lookalike.jsonl --out out/report.json
           test -s out/report.json
-      - name: Run simulator (existing)
+      - name: Run simulator
         run: |
           python simulator/generate_events.py --out out/events.jsonl --count 10
           test -s out/events.jsonl
